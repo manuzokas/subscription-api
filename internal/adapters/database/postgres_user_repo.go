@@ -41,3 +41,19 @@ func (r *PostgresUserRepository) FindUserByEmail(ctx context.Context, email stri
 	}
 	return &user, nil
 }
+
+func (r *PostgresUserRepository) FindUserByID(ctx context.Context, id string) (*domain.User, error) {
+	query := `
+		SELECT id, name, email, password_hash, created_at, updated_at
+		FROM users WHERE id = $1;
+	`
+	var user domain.User
+	err := r.pool.QueryRow(ctx, query, id).Scan(&user.ID, &user.Name, &user.Email, &user.PasswordHash, &user.CreatedAt, &user.UpdatedAt)
+	if err != nil {
+		if errors.Is(err, pgx.ErrNoRows) {
+			return nil, errors.New("user not found")
+		}
+		return nil, err
+	}
+	return &user, nil
+}
