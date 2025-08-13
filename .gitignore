@@ -1,0 +1,24 @@
+# Binários compilados
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Arquivos de Teste
+*.test
+
+# Arquivos de Build
+/vendor/
+/build/
+
+# Arquivos do Sistema Operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos de IDEs
+.vscode/
+.idea/
+
+# Arquivo de variáveis de ambiente
+.env
